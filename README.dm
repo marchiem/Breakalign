@@ -2,15 +2,14 @@ Program use
 
 Overview
 
-BreakAlign is a Perl program downloadable from https://github.com/marchiem/Breakalign along with a tutorial folder containing everything necessary
-for a basic run (the command line example below uses that in the tutorial).
-The program outputs chimaeric sequences aligned to the host genome sequence in what has become a standard format.
+BreakAlign is a Perl program downloadable from https://github.com/marchiem/Breakalign along with sample data files necessary
+for a basic test run. The program outputs chimaeric sequences aligned to the host genome sequence in what has become a standard format.
 
 Sample command line
 
 > perl breakalign.pl —f chr19_29855576_29856018.fa —r NGSreads.fa —vr LTR.fa
 
-Prior to execution the following key steps are required (detailed below and in the tutorial).
+Prior to execution the following key steps are required.
 
 1. BreakAlign will check for a system blastn installation since this dependency is a strict prerequisite for the software to run; if not found,
 the user is warned and can provide a directory path where a local version of blastn is downloaded using the -bp switch and write the local blastn
@@ -36,5 +35,3 @@ in a single folder (chr1.fa, chr2.fa, etc). To use this option the following are
 3. A coordinate range as a string in ‘chrN:start-end’ format must be provided using the —c switch (e.g. chr16:89577447-89578013).
 
 4. Do not use the —f switch, which overrides this option.
-
-Alternatively, breakalign can run using a reference file (option -f), overriding in this case the automatic generation, if region coordinates are given as input (option –c).

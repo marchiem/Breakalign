@@ -23,10 +23,9 @@ the —f switch directs the program to the former. To use the latter, see Option
 
 Options
 
-Genome coordinates. BreakAlign can retrieve automatically a reference sequence spanning a putative integration site from an installed
+BreakAlign can retrieve automatically a reference sequence spanning a putative integration site from an installed
 copy of the reference human genome. This genome must be downloaded from either the UCSC website (http://hgdownload.soe.ucsc.edu/goldenPath/hg19/chromosomes/)
-or from the NCBI –NIH genomes FTP site (ftp://ftp.ncbi.nih.gov/genomes). The downloads will contain chromosomes as individual FASTA file within
-in a single folder (chr1.fa, chr2.fa, etc). To use this option the following are required.
+or from the NCBI –NIH genomes FTP site (ftp://ftp.ncbi.nih.gov/genomes). The downloads will contain chromosomes as individual FASTA file within a single folder (chr1.fa, chr2.fa, etc). To use this option the following are required.
 
 1. The Bioperl module SeqIO must be installed.
 

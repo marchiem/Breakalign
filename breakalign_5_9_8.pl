@@ -59,8 +59,8 @@ elsif ($coo)
     {
         if ($uref ne "") {require Bio::SeqIO};     
         
-        unless ($coo eq "") {print "Reference sequence will be extracted from coordinates ".$coo."\n"} else {print "Please provide Genomic coordinates\n";exit;};
-        unless ($hg19_ref eq "") {print "from raw fasta reference in folder: ".$hg19_ref."\n"} else {print "Please provide path to folder with reference fasta files\n";exit};
+        if ($coo ne "") {print "Reference sequence will be extracted from coordinates ".$coo."\n"} else {print "Please provide Genomic coordinates\n";exit;};
+        if ($hg19_ref ne "") {print "from raw fasta reference in folder: ".$hg19_ref."\n"} else {print "Please provide path to folder with reference fasta files\n";exit};
         print "LTR reference sequence given: ".$vir_ref."\n";
         print "Reads to align to reference given: ".$reads."\n";
     }

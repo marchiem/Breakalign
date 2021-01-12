@@ -4,7 +4,7 @@ Overview
 
 BreakAlign is a Perl program downloadable from https://github.com/marchiem/Breakalign along with sample data files necessary for a basic test run. The program outputs chimaeric sequences aligned to the host genome sequence in what has become a standard format. Typing breakalign.pl -help will show options.
 
-Sample command line (note always use hyphen not dash symbols)
+Sample command line (note, always use hyphen not dash symbols and ensure no whitespaces in directory names)
 
 > perl breakalign.pl —f chr19_29855576_29856018.fa —r NGSreads.fa —vr LTR.fa
 

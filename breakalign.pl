@@ -17,50 +17,54 @@ my $word_s2 = '20';
 my $blast_path = ""; # can put in path to BLAST here rather than in command line; will probably be like /.../ncbi-blast-2.2.29+/bin/
 my $k_f = "";
 
-GetOptions ("help"  => \$help, "f=s" => \$uref, "c=s" => \$coo, "fr=s" => \$hg19_ref, "r=s" => \$reads,
-            "ws=s" =>\$word_s, "ws2=s" => \$word_s2, "bp=s" => \$blast_path, "vr=s" => \$vir_ref, "kt" => \$k_f )
-or die("Error in command line arguments\n");
-
 if ($help)
 {
     print "usage: perl path/to/Breakalign.pl [options] -r <in.fasta>\n";
     print "-help        This menu\n";
-    print "-f   FILE    User-provided reference sequence\n";
-    print "-fr          path to reference folder containing fasta files for each chromosome\n";
+    print "-f   FILE    User provided reference suquence\n";
+    print "-fr          Path to reference folder cointaining fasta files for each chromosome\n";
     print "-vr          path to LTR sequence reference\n";
     print "-c   STR     Genomic coordinates <Chr>:<Start>-<Stop> (e.g. chr16:89577447-89578013)\n";
     print "-r   FILE    File containing sequences reads\n";
-    print "-ws  INT     minumum word size alignment of reads to the reference sequence [10]\n";
-    print "-ws2 INT     minumum word size alignment of reads to the LTR sequence [10]\n";
+    print "-ws  INT     minumun word size alignment of reads to the reference sequence [10]\n";
+    print "-ws2 INT     minumun word size alignment of reads to the LTR sequence [10]\n";
     print "-bp          path to alternative blastn installation\n";
     print "-kt          keep reads database files (in case of very large input reads file) \n";
-    
     exit;
 }
-	
+
 unless ($blast_path) {
 	$blast_path = qx(which blastn);
 	$blast_path =~  s/blastn$//;
 	chomp($blast_path); # remove new line character if we get blast path from 'which' system command
 	$blast_path =~ s/\r\n$//; # just in case chomp does not work
-	$blast_path =~ s/\r$//;# just in case...	print "2. blast path is $blast_path \n";
+	$blast_path =~ s/\r$//;# just in case...
+
 }
 
 unless ($blast_path) { die "\nERROR: blastn not found"; }
-else { print "\nNCBI Blast installation detected\n"}
+else { print "NCBI Blast installation detected\n"}
 
 system($blast_path."blastn -version ") == 0 or die "I cannot find blastn at $blast_path";
 
-if ($uref)
+GetOptions ("help"  => \$help, "f=s" => \$uref, "c=s" => \$coo, "fr=s" => \$hg19_ref, "r=s" => \$reads,
+            "ws=s" =>\$word_s, "ws2=s" => \$word_s2, "bp=s" => \$blast_path, "vr=s" => \$vir_ref, "kt" => \$k_f )
+or die("Error in command line arguments\n");
+
+
+
+if ($vir_ref ne "") {print "LTR reference sequence in folder: ".$vir_ref."\n"} else {print "Please provide LTR reference sequence";exit;};
+if ($reads ne "") {print "Reads to align to reference: ".$reads."\n"} else {print "Please provide reads to align to the references";exit;};
+if ($uref ne "")
 {
-    print "I will use user-provided fasta file as reference.\n"
+    print "I will use user provided fasta file as reference: $uref.\n"
+    
 }
 elsif ($coo)
     {
-        if ($uref ne "") {require Bio::SeqIO};     
-        
-        unless ($coo eq "") {print "Reference sequence will be extracted from coordinates ".$coo."\n"} else {print "Please provide Genomic coordinates\n";exit;};
-        unless ($hg19_ref eq "") {print "from raw fasta reference in folder: ".$hg19_ref."\n"} else {print "Please provide path to folder with reference fasta files\n";exit};
+        if ($uref eq "") {require Bio::SeqIO};    
+        if ($coo ne "") {print "Reference sequence will be extracted from coordinates ".$coo."\n"} else {print "Please provide Genomic coordinates\n";exit;};
+        if ($hg19_ref ne "") {print "from raw fasta reference in folder: ".$hg19_ref."\n"} else {print "Please provide path to folder with reference fasta files\n";exit};
         print "LTR reference sequence given: ".$vir_ref."\n";
         print "Reads to align to reference given: ".$reads."\n";
     }

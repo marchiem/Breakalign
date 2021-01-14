@@ -8,6 +8,8 @@ Sample command line (note, always use hyphen not dash symbols and ensure no whit
 
 > perl breakalign.pl —f chr19_29855576_29856018.fa —r NGSreads.fa —vr LTR.fa
 
+> perl breakalign.pl —f chr21_14511311_14511999.fa —r NGSreads-HIV.fa —vr LTR-HIV.fa
+
 Prior to execution the following key steps are required.
 
 1. BreakAlign will check for a system blastn installation since this dependency is a strict prerequisite for the software to run; if not found, the user is warned and can provide a directory path where a local version of blastn is downloaded using the -bp switch and write the local blastn directory path (if the version of blastn predates 2.2.31+ it should still run but we cannot guarantee that).

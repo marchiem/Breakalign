@@ -27,7 +27,7 @@ if ($help)
     print "-c   STR     Genomic coordinates <Chr>:<Start>-<Stop> (e.g. chr16:89577447-89578013)\n";
     print "-r   FILE    File containing sequences reads\n";
     print "-ws  INT     minumun word size alignment of reads to the reference sequence [10]\n";
-    print "-ws2 INT     minumun word size alignment of reads to the LTR sequence [10]\n";
+    print "-ws2 INT     minumun word size alignment of reads to the LTR sequence [20]\n";
     print "-bp          path to alternative blastn installation\n";
     print "-kt          keep reads database files (in case of very large input reads file) \n";
     exit;

@@ -46,27 +46,50 @@ or die("Error in command line arguments\n");
 
 if ($help)
 {
-    print "usage: perl path/to/Breakalign.pl [options] -r <in.fasta>\n";
-    print "-help        This menu\n";
-    print "-f   FILE    User provided reference suquence\n";
-    print "-fr          Path to reference folder cointaining fasta files for each chromosome\n";
-    print "-vr          path to LTR sequence reference\n";
-    print "-c   STR     Genomic coordinates <Chr>:<Start>-<Stop> (e.g. chr16:89577447-89578013)\n";
-    print "-r   FILE    File containing sequences reads\n";
-    print "-ws  INT     minumun word size alignment of reads to the reference sequence [10]\n";
-    print "-ws2 INT     minumun word size alignment of reads to the LTR sequence [10]\n";
-    print "-bp          path to alternative blastn installation\n";
-    print "-kt          keep all temporary files (to be used for a single site inspection) \n";
-		print "-bf          file in bed format with multiple coordinates to test \n";
-		print "-kd          keep reads database files (in case of very large input reads file) \n";
-		print "-nt  INT     number of threads to use in blastn query command \n";
+	  
+    print "usage: perl path/to/Breakalign.pl [options]\n";
+		print "ESSENTIAL\n";
+		print "-r   FILE    File containing sequences reads\n";
+		print "-vr  FILE    File containing LTR sequence reference\n";
+		print "AND EITHER\n";
+		print "-f   FILE    ~500nts of human reference sequence spanning integration\n";
+		print "OR\n";
+		print "-fr  PATH  Reference folder containing FASTA files for each chromosome\n";
+		print "     AND EITHER\n";
+		print "     -c   STR   Genomic coordinates <Chr>:<Start>-<Stop> (e.g. chr16:89577447-89578013)\n";
+		print "     OR\n";
+		print "     -bf  FILE  Multiple coordinates in bed format\n\n";
+		print "OPTIONAL\n";
+    print "-h		      This menu\n";
+		print "-bp  PATH  Path to alternative blastn installation\n";
+		print "-kt        Keep all temporary files (to be used for a single site inspection)\n";
+		print "-kd        Keep reads database files (to be used for large input reads file)\n";
+		print "-nt  INT   Number of threads to use in blastn query command\n";
+    print "-ws  INT   Minumun word size alignment of reads to the reference sequence [10]\n";
+    print "-ws2 INT   Minumun word size alignment of reads to the LTR sequence [10]\n";
+    
+    
+		
+		
+		
 		#die $help; supposed to be 1 when help option is chose. ok
     exit;
 }
 
-
-if ($vir_ref ne "") {print "LTR reference sequence in folder: ".$vir_ref."\n"} else {print "Please provide LTR reference sequence";exit;};
-if ($reads ne "") {print "Reads to align to reference: ".$reads."\n"} else {print "Please provide reads to align to the references";exit;};
+my $help_out = "Breakalign requires the following switches:\n";
+$help_out .= "-r          NGS reads file\n";
+$help_out .= "-vr         LTR sequence file\n";
+$help_out .= "AND EITHER\n";
+$help_out .= "-f          File containing ~500nts of human reference sequence spanning integration\n";
+$help_out .= "OR\n";
+$help_out .= "-fr         Path to reference folder containing fasta files for all chromosomes\n";
+$help_out .= "            AND EITHER\n";
+$help_out .= "            -c         Genomic coordinate in form <Chr>:<Start>-<Stop>\n";
+$help_out .= "            OR\n";
+$help_out .= "            -bf        Multiple coordinates in bed file\n\n";
+$help_out .= "Check usage with Breakalign.pl -h\n";
+if ($vir_ref ne "") {print "LTR reference sequence in folder: ".$vir_ref."\n"} else {print "Please provide LTR reference sequence\n\n".$help_out;exit;};
+if ($reads ne "") {print "Reads to align to reference: ".$reads."\n"} else {print "Please provide reads to align to the references\n\n".$help_out;exit;};
 if ($uref ne "")
 {
     print "I will use user provided fasta file as reference: $uref.\n"
@@ -75,8 +98,8 @@ if ($uref ne "")
 elsif ($coo)
     {
         if ($uref eq "") {require Bio::SeqIO};    
-        if ($coo ne "") {print "Reference sequence will be extracted from coordinates ".$coo."\n"} else {print "Please provide Genomic coordinates\n";exit;};
-        if ($hg19_ref ne "") {print "from raw fasta reference in folder: ".$hg19_ref."\n"} else {print "Please provide path to folder with reference fasta files\n";exit};
+        if ($coo ne "") {print "Reference sequence will be extracted from coordinates ".$coo."\n"} else {print "Please provide Genomic coordinates\n\n".$help_out;exit;};
+        if ($hg19_ref ne "") {print "from raw fasta reference in folder: ".$hg19_ref."\n"} else {print "Please provide path to folder with reference fasta files\n\n".$help_out;exit};
         #print "LTR reference sequence given: ".$vir_ref."\n";#just printed above and not meant to be here
         #print "Reads to align to reference given: ".$reads."\n";#just printed above
     }
@@ -86,7 +109,7 @@ elsif ($bed_co)
 		}
 else
 {
-  print "Please provide reference file and suitable input files. Check usage with Breakalign.pl --help\n";exit;  
+  print "Please provide reference file and suitable input files\n\n".$help_out;exit;  
 }
 
 # dealing with candidate region genome coordinates, input must be like chr3:76076289-76076636

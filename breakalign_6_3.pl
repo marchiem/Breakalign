@@ -243,7 +243,7 @@ if ($output_dir =~ m/ /) {$output_dir =~ s/ /\\ /};
 
 # copy the reference sequence in the input dir in case it is not already in the working directory
 
-copy($uref,$input_dir);
+#copy($uref,$input_dir);
 
 # to handle escape character in -e or open in perl
 
